@@ -8,16 +8,18 @@ function App() {
 
   const handleChange = (e) => {
     console.log(e.target.value);
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ file: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("formData.file:", formData.file);
+    // const sendData = new FormData();
+    // sendData.append("file", formData.file, formData.file.name);
     try {
       const response = await axios({
         method: "post",
-        url: "route/to/backend",
+        url: "http://localhost:3000/upload",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -35,12 +37,15 @@ function App() {
       <main className="App">
         <h1>Datei Upload</h1>
         <form
+          // action="http://localhost:3000/upload"
           id="fileForm"
+          // method="POST"
+          // encType="multipart/form-data"
           name="fileForm"
           data-netlify="true"
           onSubmit={handleSubmit}
         >
-          <input type="hidden" name="form-name" value="fileForm" />
+          {/* <input type="hidden" name="form-name" value="fileForm" /> */}
 
           <label htmlFor="file">Datei auswählen:</label>
           <input type="file" name="file" id="file" onChange={handleChange} />
