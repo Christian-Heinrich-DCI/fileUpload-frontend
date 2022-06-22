@@ -14,13 +14,13 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("formData.file:", formData.file);
-    // const sendData = new FormData();
-    // sendData.append("file", formData.file, formData.file.name);
+    const sendData = new FormData();
+    sendData.append("file", formData.file, formData.file.name);
     try {
       const response = await axios({
         method: "post",
         url: "http://localhost:3000/upload",
-        data: formData,
+        data: sendData,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
